@@ -5,17 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using ApplicationCore.Models;
 
 namespace ApplicationCore.Entities
 {
-    [Table("Genre")]
-    public class Genre
+    [Table("MovieGenre")]
+    public class MovieGenre
     {
-        public int Id { get; set; }
-        [MaxLength(24)]
-        public string Name { get; set; }
+        public int MovieId { get; set; }
 
-        public List<MovieGenre> MoviesOfGenre { get; set; }
+        public int GenreId { get; set; }
+
+        public Movie Movie { get; set; }
+        public Genre Genre { get; set; }
     }
 }

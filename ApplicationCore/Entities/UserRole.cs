@@ -5,17 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using ApplicationCore.Models;
 
 namespace ApplicationCore.Entities
 {
-    [Table("Genre")]
-    public class Genre
+    [Table("UserRole")]
+    public class UserRole
     {
-        public int Id { get; set; }
-        [MaxLength(24)]
-        public string Name { get; set; }
+        public int UserId { get; set; }
+        public int RoleId { get; set; }
 
-        public List<MovieGenre> MoviesOfGenre { get; set; }
+        public User User { get; set; }
+        public Role Role { get; set; }
     }
 }

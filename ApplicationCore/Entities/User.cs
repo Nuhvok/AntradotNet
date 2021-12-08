@@ -61,5 +61,7 @@ namespace ApplicationCore.Entities
 
         public List<Favorite> Favorites { get; set; }
         public List<Purchase> Purchases { get; set; }
+        public List<Review> Reviews { get; set; }
+        public List<UserRole> RolesOfUser { get; set; }
     }
 }

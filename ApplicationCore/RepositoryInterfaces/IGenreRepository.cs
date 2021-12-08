@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.RepositoryInterfaces
 {
-    public interface IMovieRepository : IRepository<Movie>
+    public interface IGenreRepository : IRepository<Genre>
     {
-        IEnumerable<Movie> Get30HighestGrossingMovies();
+
     }
 }

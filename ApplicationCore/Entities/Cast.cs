@@ -5,17 +5,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using ApplicationCore.Models;
 
 namespace ApplicationCore.Entities
 {
-    [Table("Genre")]
-    public class Genre
+    [Table("Cast")]
+    public class Cast
     {
+        [Key]
         public int Id { get; set; }
-        [MaxLength(24)]
-        public string Name { get; set; }
 
-        public List<MovieGenre> MoviesOfGenre { get; set; }
+        [MaxLength(128)]
+        public string? Name { get; set; }
+
+        public string? Gender { get; set; }
+
+        public string? TmdbUrl { get; set; }
+
+        [MaxLength(2084)]
+        public string? ProfilePath { get; set; }
+
     }
 }

@@ -1,6 +1,97 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model ApplicationCore.Models.MovieDetailsResponseModel
+
 @{
+    ViewData["Title"] = "Details";
 }
+
+
+<div class="container-fluid" style="background-image: url('@Model.BackdropUrl');">
+  <div class="row">
+    <div class="col-4">
+      <img src="@Model.PosterUrl"  style="height:300px; margin-right: 30%; margin-left: 30%;" alt="@Model.Title"/>
+    </div>
+    <div class="col-6" style="color:white">
+      <h1>@Model.Title</h1>
+      @Model.Tagline
+      <br/>
+
+      <ul style="padding-inline-start: 0px;list-style-type: none;">
+          <li style="float:left;"><h5 style="display: inline;">@(@Model.RunTime + "m|" + @Model.ReleaseDate.Value.Year)</h5></li>
+          @foreach(var genre in @Model.Genres)
+            {
+                <li style="float:right;"><span class="badge rounded-pill bg-secondary">@genre.Name</span></li>
+            }
+      </ul>
+      <br />
+      <form action="@Model.ImdbUrl">
+          <button type="submit" formtarget="_blank" class="btn" style="background-color:#49FA41">
+              IMBD
+          </button>
+      </form>
+      <p>
+          @Model.Overview
+      </p>
+    </div>
+    <div class="col">
+      <ul style="padding-inline-start: 0px;list-style-type: none;">
+          <li><button type="submit" formtarget="_blank" style="width:60%; margin-right: 20%; margin-left: 20%;margin-top: 10px;">Review</button></li>
+          <li><button type="submit" formtarget="_blank" style="width:60%; margin-right: 20%; margin-left: 20%;margin-top: 10px;">Buy $@Model.Price</button></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-5" style="background-color:#F2F2F6">
+      <h5>MOVIE FACTS</h5>
+      <hr style="color:lightgray;background-color:lightgray"/>
+      Release Date
+      <span class="badge rounded-pill bg-dark">@Model.ReleaseDate.Value.ToString("MMM dd, yyyy")</span>
+      <hr style="color:black;background-color:black"/>
+
+      Run Time
+      <span class="badge rounded-pill bg-dark">@Model.RunTime m</span>
+      <hr style="color:black;background-color:black"/>
+
+      Box Office
+      <span class="badge rounded-pill bg-dark">$@Model.Revenue.Value.ToString("N")</span>
+      <hr style="color:black;background-color:black"/>
+
+      Budget
+      <span class="badge rounded-pill bg-dark">$@Model.Budget.Value.ToString("N")</span>
+      <hr style="color:black;background-color:black"/>
+
+      <h5 style="margin-top:20px">Trailers</h5>
+      <hr style="color:lightgray;background-color:lightgray"/>
+      <ul style="padding-inline-start: 0px;list-style-type: none;">
+      @foreach(var trailer in @Model.Trailers)
+            {
+                <li><a href="@trailer.TrailerUrl" style="text-decoration:none;color:black;">@trailer.Name</a></li>
+            }
+      </ul>
+    </div>
+
+
+    <div class="col">
+      <h5>CAST</h5>
+      <hr style="color:lightgray;background-color:lightgray"/>
+      
+      <table class="table" style="display: inline;">
+          <tbody>
+            @foreach(var actor in @Model.Casts)
+            {
+                <tr>
+                  <td style="width:20%;padding-right:30px;"><img src="@actor.PosterUrl"  style="height:100px;border-radius: 70px / 100px;" alt="@actor.Name"/></td>
+                  <td style="vertical-align:middle;width:40%;padding-right:100px;">@actor.Name</td>
+                  <td style="vertical-align:middle;width:40%;">@actor.Character</td>
+                </tr>
+            }
+         </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
 

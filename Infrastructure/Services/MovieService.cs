@@ -53,7 +53,10 @@ namespace Infrastructure.Services
                 BackdropUrl = movie.BackdropUrl,
                 TmdbUrl = movie.TmdbUrl,
                 ImdbUrl = movie.ImdbUrl,
-                Price = movie.Price
+                Price = movie.Price,
+                ReleaseDate = movie.ReleaseDate,
+                Budget = movie.Budget,
+                Revenue = movie.Revenue
 
             };
 

@@ -32,5 +32,60 @@ namespace Infrastructure.Services
 
             return movieCards;
         }
+
+        public MovieDetailsResponseModel GetMovieDetailsById(int id)
+        {
+            var movie = _movieRepository.GetById(id);
+
+            // map movie entity into Movie Details Model
+            // Automapper that can be used for mapping one object to another object
+
+            var movieDetails = new MovieDetailsResponseModel
+            {
+                Id = movie.Id,
+                PosterUrl = movie.PosterUrl,
+                Title = movie.Title,
+                OriginalLanguage = movie.OriginalLanguage,
+                Overview = movie.Overview,
+                Rating = movie.Rating,
+                Tagline = movie.Tagline,
+                RunTime = movie.RunTime,
+                BackdropUrl = movie.BackdropUrl,
+                TmdbUrl = movie.TmdbUrl,
+                ImdbUrl = movie.ImdbUrl,
+                Price = movie.Price
+
+            };
+
+            foreach (var movieCast in movie.CastOfMovie)
+            {
+                movieDetails.Casts.Add(new CastResponseModel
+                {
+
+                    Id = movieCast.CastId,
+                    Character = movieCast.Character,
+                    Name = movieCast.Cast.Name,
+                    PosterUrl = movieCast.Cast.ProfilePath
+                });
+            }
+
+            foreach (var trailer in movie.Trailers)
+            {
+                movieDetails.Trailers.Add(new TrailerResponseModel
+                {
+                    Id = trailer.Id,
+                    MovieId = trailer.Id,
+                    Name = trailer.Name,
+                    TrailerUrl = trailer.TrailerUrl
+                });
+            }
+
+            foreach (var movieGenres in movie.GenreOfMovie)
+            {
+                movieDetails.Genres.Add(new GenreModel { Id = movieGenres.GenreId, Name = movieGenres.Genre.Name });
+            }
+
+            return movieDetails;
+        }
     }
 }

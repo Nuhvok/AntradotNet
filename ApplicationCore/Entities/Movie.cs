@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace ApplicationCore.Entities
 {
     public class Movie
@@ -28,11 +31,16 @@ namespace ApplicationCore.Entities
         public string? UpdatedBy { get; set; }
         public string? CreatedBy { get; set; }
 
+        [NotMapped]
+        public decimal? Rating { get; set; }
+
         public List<Trailer> Trailers { get; set; }
 
         public List<Favorite> Favorites { get; set; }
 
         public List<Review> Reviews { get; set; }
+
+        public List<Purchase> Purchases { get; set; }
 
         public List<MovieGenre> GenreOfMovie { get; set; }
 

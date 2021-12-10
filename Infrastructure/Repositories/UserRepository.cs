@@ -1,6 +1,7 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.RepositoryInterfaces;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +16,9 @@ namespace Infrastructure.Repositories
         {
 
         }
-        public User GetUserByEmail(string email)
+        public async Task<User> GetUserByEmail(string email)
         {
-            var user = _dbContext.Users.FirstOrDefault(x => x.Email == email);
+            var user = await _dbContext.Users.FirstOrDefaultAsync(x => x.Email == email);
             return user;
         }
     }

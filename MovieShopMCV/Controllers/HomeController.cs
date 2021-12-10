@@ -14,9 +14,9 @@ namespace MovieShopMCV.Controllers
             _movieService = movieService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var movieCards = _movieService.GetHighestGrossingMovies();
+            var movieCards = await _movieService.GetHighestGrossingMovies();
             return View(movieCards);
         }
 

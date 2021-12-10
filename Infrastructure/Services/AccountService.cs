@@ -21,9 +21,9 @@ namespace Infrastructure.Services
             _userRepository = userRepository;
         }
 
-        public int RegisterUser(UserRegisterRequestModel model)
+        public async Task<int> RegisterUser(UserRegisterRequestModel model)
         {
-            var dbUser = _userRepository.GetUserByEmail(model.Email);
+            var dbUser = await _userRepository.GetUserByEmail(model.Email);
 
             if(dbUser != null)
             {
@@ -44,14 +44,35 @@ namespace Infrastructure.Services
                 LastName = model.LastName
             };
 
-            var creaedUser = _userRepository.Add(user);
+            var creaedUser = await _userRepository.Add(user);
             return creaedUser.Id;
 
         }
 
-        public UserLoginResponseModel ValidateUser(LoginRequestModel model)
+        public async Task<UserLoginResponseModel> ValidateUser(LoginRequestModel model)
         {
-            throw new NotImplementedException();
+            var user = await _userRepository.GetUserByEmail(model.Email);
+            if(user == null)
+            {
+                return null;
+
+                //throw new Exception();
+            }
+
+            var hashedPassword = GetHashedPassword(model.Password, user.Salt);
+            if(hashedPassword == user.HashedPassword)
+            {
+                var userLoginResponseModel = new UserLoginResponseModel 
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    DateOfBirth= user.DateOfBirth,
+                    FirstName= user.FirstName,
+                    LastName= user.LastName
+                };
+                return userLoginResponseModel;
+            }
+            return null;
         }
 
         private string GenerateSalt()

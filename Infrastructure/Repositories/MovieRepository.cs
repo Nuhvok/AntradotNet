@@ -16,20 +16,20 @@ namespace Infrastructure.Repositories
         {
 
         }
-        public IEnumerable<Movie> Get30HighestGrossingMovies()
+        public async Task<IEnumerable<Movie>> Get30HighestGrossingMovies()
         {
-            var movies = _dbContext.Movies.OrderByDescending(x => x.Revenue).Take(30).ToList();
+            var movies = await _dbContext.Movies.OrderByDescending(x => x.Revenue).Take(30).ToListAsync();
             return movies;
         }
 
-        public override Movie GetById(int id)
+        public async override Task<Movie> GetById(int id)
         {
-            var movieDetails = _dbContext.Movies.Include(m=> m.CastOfMovie).ThenInclude(m=> m.Cast)
+            var movieDetails = await _dbContext.Movies.Include(m=> m.CastOfMovie).ThenInclude(m=> m.Cast)
                 .Include(m=> m.GenreOfMovie).ThenInclude(m=> m.Genre)
-                .Include(m=> m.Trailers).FirstOrDefault(m=> m.Id == id);
+                .Include(m=> m.Trailers).FirstOrDefaultAsync(m=> m.Id == id);
             if (movieDetails == null) return null;
 
-            var rating = _dbContext.Reviews.Where(m => m.MovieId == id).DefaultIfEmpty().Average(r=> r == null ? 0 : r.Rating);
+            var rating = await _dbContext.Reviews.Where(m => m.MovieId == id).DefaultIfEmpty().AverageAsync(r=> r == null ? 0 : r.Rating);
             movieDetails.Rating = rating;
             return movieDetails;
         }

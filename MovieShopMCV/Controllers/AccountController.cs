@@ -21,10 +21,10 @@ namespace MovieShopMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(UserRegisterRequestModel userRegisterRequestModel)
+        public async Task<IActionResult> Register(UserRegisterRequestModel userRegisterRequestModel)
         {
             // save the data in database and reutn to login page
-            var user = _accountService.RegisterUser(userRegisterRequestModel);
+            var user = await _accountService.RegisterUser(userRegisterRequestModel);
 
             if (user == 0)
             {
@@ -43,6 +43,13 @@ namespace MovieShopMVC.Controllers
         [HttpPost]
         public IActionResult Login(LoginRequestModel loginRequestModel)
         {
+            var user = _accountService.ValidateUser(loginRequestModel);
+            if(user == null)
+            {
+                // show error message
+
+            }
+
             return View();
         }
     }

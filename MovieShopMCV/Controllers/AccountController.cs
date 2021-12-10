@@ -1,10 +1,18 @@
 ﻿using ApplicationCore.Models;
+using ApplicationCore.ServiceInterfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MovieShopMVC.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly IAccountService _accountService;
+
+        public AccountController(IAccountService accountService)
+        {
+            _accountService = accountService;
+        }
+
         // account/register
         [HttpGet]
         public IActionResult Register()
@@ -13,10 +21,17 @@ namespace MovieShopMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(UserRegisterRequestModel registerRequestModel)
+        public IActionResult Register(UserRegisterRequestModel userRegisterRequestModel)
         {
             // save the data in database and reutn to login page
-            return View();
+            var user = _accountService.RegisterUser(userRegisterRequestModel);
+
+            if (user == 0)
+            {
+                // email already exists
+                return View();
+            }
+            return RedirectToAction("Login");
         }
 
         [HttpGet]

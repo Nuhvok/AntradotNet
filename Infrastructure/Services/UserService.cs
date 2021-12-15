@@ -13,6 +13,7 @@ namespace Infrastructure.Services
         private readonly IUserRepository _userRepository;
 
         //extra comment here
+        //another extra comment
         public UserService(IUserRepository userRepository)
         {
             _userRepository = userRepository;

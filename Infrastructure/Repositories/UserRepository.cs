@@ -28,6 +28,24 @@ namespace Infrastructure.Repositories
             return user;
         }
 
+        public async override Task<User> Update(User user)
+        {
+            var userUpdated = await _dbContext.Users.Where(u => u.Id == user.Id).FirstOrDefaultAsync();
+
+            if (userUpdated != null)
+            {
+                userUpdated.FirstName = user.FirstName;
+                userUpdated.LastName = user.LastName;
+                userUpdated.DateOfBirth = user.DateOfBirth;
+                userUpdated.Email = user.Email;
+                userUpdated.PhoneNumber = user.PhoneNumber;
+
+                _dbContext.SaveChanges();
+                return userUpdated;
+            }
+            throw new Exception();
+        }
+
         public async Task<IEnumerable<Movie>> GetUserFavoritedMovies(int id)
         {
             var movies = await _dbContext.Movies.Join(_dbContext.Favorites, m => m.Id, f => f.MovieId, (m, f) => new { m.Id,m.PosterUrl, m.Title, f.UserId}).Where(f => f.UserId == id).Select(m => new Movie { Id = m.Id, PosterUrl = m.PosterUrl, Title = m.Title}).ToListAsync();

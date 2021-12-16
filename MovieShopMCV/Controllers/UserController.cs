@@ -52,6 +52,7 @@ namespace MovieShopMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> EditProfile(UserDetailsModel userDetailsModel)
         {
+            userDetailsModel.Id = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             var result = await _userService.EditUserProfile(userDetailsModel);
             if (result)
             {

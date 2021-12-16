@@ -20,7 +20,7 @@ namespace Infrastructure.Services
         }
         public async Task<bool> EditUserProfile(UserDetailsModel userDetailsModel)
         {
-            var user = await _userRepository.Update(new User { FirstName = userDetailsModel.FirstName, LastName = userDetailsModel.LastName, DateOfBirth = userDetailsModel.DateOfBirth, Email = userDetailsModel.Email, PhoneNumber = userDetailsModel.PhoneNumber });
+            var user = await _userRepository.Update(new User { Id = userDetailsModel.Id, FirstName = userDetailsModel.FirstName, LastName = userDetailsModel.LastName, DateOfBirth = userDetailsModel.DateOfBirth, Email = userDetailsModel.Email, PhoneNumber = userDetailsModel.PhoneNumber });
             return user != null ? true: false;
         }
 

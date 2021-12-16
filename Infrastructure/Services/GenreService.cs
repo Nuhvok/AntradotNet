@@ -1,6 +1,7 @@
 ﻿using ApplicationCore.Models;
 using ApplicationCore.RepositoryInterfaces;
 using ApplicationCore.ServiceInterfaces;
+using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,12 +13,24 @@ namespace Infrastructure.Services
     public class GenreService : IGenreService
     {
         private readonly IGenreRepository _genreRepository;
-        public GenreService(IGenreRepository genreRepository)
+        private readonly IMemoryCache _memoryCache;
+        private static readonly string _genresCacheKey = "genres";
+        private static readonly TimeSpan DefaultCacheDuration = TimeSpan.FromDays(7);
+        public GenreService(IGenreRepository genreRepository, IMemoryCache memoryCache)
         {
             _genreRepository = genreRepository;
+            _memoryCache = memoryCache;
         }
         public async Task<List<GenreModel>> GetAllGenres()
         {
+            var genresFromCache = await _memoryCache.GetOrCreateAsync(_genresCacheKey, CacheFactory);
+
+            return genresFromCache.OrderBy(g => g.Name).ToList();
+        }
+
+        private async Task<IEnumerable<GenreModel>> CacheFactory(ICacheEntry entry)
+        {
+            entry.SlidingExpiration = DefaultCacheDuration;
             var genres = await _genreRepository.GetAll();
 
             var genreModel = new List<GenreModel>();

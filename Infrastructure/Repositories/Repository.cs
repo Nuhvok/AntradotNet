@@ -40,13 +40,15 @@ namespace Infrastructure.Repositories
             return entity;
         }
 
-        public async Task<T> Update(T entity)
+        public virtual async Task<T> Update(T entity)
         {
             throw new NotSupportedException();
 
-            _dbContext.Set<T>().Update(entity);
-            await _dbContext.SaveChangesAsync();
-            return entity;
+            
+
+            //_dbContext.Set<T>().Update(entity);
+            //await _dbContext.SaveChangesAsync();
+            //return entity;
         }
     }
 }

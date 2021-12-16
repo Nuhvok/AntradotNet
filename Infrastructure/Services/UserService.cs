@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Models;
 using ApplicationCore.RepositoryInterfaces;
+using ApplicationCore.ServiceInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,6 @@ namespace Infrastructure.Services
     {
         private readonly IUserRepository _userRepository;
 
-        //extra comment here
-        //another extra comment
         public UserService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
@@ -28,14 +27,32 @@ namespace Infrastructure.Services
             throw new NotImplementedException();
         }
 
-        public Task<List<MovieCardResponseModel>> GetUserFavoritedMovies(int id)
+        public async Task<List<MovieCardResponseModel>> GetUserFavoritedMovies(int id)
         {
-            throw new NotImplementedException();
+            var movies = await _userRepository.GetUserFavoritedMovies(id);
+            
+            var movieCards = new List<MovieCardResponseModel>();
+            foreach (var movie in movies)
+            {
+                movieCards.Add(
+                    new MovieCardResponseModel { Id = movie.Id, PosterUrl = movie.PosterUrl, Title = movie.Title }
+                    );
+            }
+            return movieCards;
         }
 
-        public Task<List<MovieCardResponseModel>> GetUserPurchasedMovies(int id)
+        public async Task<List<MovieCardResponseModel>> GetUserPurchasedMovies(int id)
         {
-            throw new NotImplementedException();
+            var movies = await _userRepository.GetUserPurchasedMovies(id);
+
+            var movieCards = new List<MovieCardResponseModel>();
+            foreach (var movie in movies)
+            {
+                movieCards.Add(
+                    new MovieCardResponseModel { Id = movie.Id, PosterUrl = movie.PosterUrl, Title = movie.Title }
+                    );
+            }
+            return movieCards;
         }
     }
 }

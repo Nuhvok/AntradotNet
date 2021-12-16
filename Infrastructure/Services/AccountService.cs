@@ -54,9 +54,9 @@ namespace Infrastructure.Services
             var user = await _userRepository.GetUserByEmail(model.Email);
             if(user == null)
             {
-                return null;
+                //return null;
 
-                //throw new Exception();
+                throw new Exception();
             }
 
             var hashedPassword = GetHashedPassword(model.Password, user.Salt);

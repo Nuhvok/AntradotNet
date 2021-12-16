@@ -24,6 +24,8 @@ namespace Infrastructure.Data
         public DbSet<MovieCast> MovieCasts { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<Favorite> Favorites { get; set; }
+        public DbSet<Purchase> Purchases { get; set; }
 
 
         public DbSet<Movie> Movies { get; set; }

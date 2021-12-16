@@ -21,5 +21,17 @@ namespace Infrastructure.Repositories
             var user = await _dbContext.Users.FirstOrDefaultAsync(x => x.Email == email);
             return user;
         }
+
+        public async Task<IEnumerable<Movie>> GetUserFavoritedMovies(int id)
+        {
+            var movies = await _dbContext.Movies.Join(_dbContext.Favorites, m => m.Id, f => f.MovieId, (m, f) => new { m.Id,m.PosterUrl, m.Title, f.UserId}).Where(f => f.UserId == id).Select(m => new Movie { Id = m.Id, PosterUrl = m.PosterUrl, Title = m.Title}).ToListAsync();
+            return movies;
+        }
+
+        public async Task<IEnumerable<Movie>> GetUserPurchasedMovies(int id)
+        {
+            var movies = await _dbContext.Movies.Join(_dbContext.Purchases, m => m.Id, p => p.MovieId, (m, p) => new { m.Id, m.PosterUrl, m.Title, p.UserId }).Where(p => p.UserId == id).Select(m => new Movie { Id = m.Id, PosterUrl = m.PosterUrl, Title = m.Title }).ToListAsync();
+            return movies;
+        }
     }
 }

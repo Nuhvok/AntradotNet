@@ -1,4 +1,4 @@
-﻿using Infrastructure.Services;
+﻿using ApplicationCore.ServiceInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -17,14 +17,17 @@ namespace MovieShopMVC.Controllers
         {
             var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
 
-            var purchases = _userService.GetUserPurchasedMovies(userId);
+            var purchases = await _userService.GetUserPurchasedMovies(userId);
             return View(purchases);
         }
 
         [HttpGet]
         public async Task<IActionResult> Favorites()
         {
-            return View();
+            var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+
+            var favorites = await _userService.GetUserFavoritedMovies(userId);
+            return View(favorites);
         }
 
         [HttpGet]

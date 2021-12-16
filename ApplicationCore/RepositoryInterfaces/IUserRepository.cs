@@ -14,5 +14,7 @@ namespace ApplicationCore.RepositoryInterfaces
         Task<IEnumerable<Movie>> GetUserFavoritedMovies(int id);
 
         Task<IEnumerable<Movie>> GetUserPurchasedMovies(int id);
+
+        Task<User> GetUserDetails(int id);
     }
 }

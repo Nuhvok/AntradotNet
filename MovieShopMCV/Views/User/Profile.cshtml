@@ -1,0 +1,28 @@
+﻿@model ApplicationCore.Models.UserDetailsModel
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-4 ">
+        <h4> Profile </h4>
+        <hr />
+
+        <div>
+            First Name: @Model.FirstName
+            <br />
+            Last Name: @Model.LastName
+            <br />
+            Date of Birth: @(Model.DateOfBirth != null ? @Model.DateOfBirth.Value.ToString() : "N/A")
+            <br />
+            Email: @Model.Email
+            <br />
+            Phone Number: @(Model.PhoneNumber != null ? @Model.PhoneNumber : "N/A")
+            <br />
+
+
+        </div>
+
+    </div>
+</div>

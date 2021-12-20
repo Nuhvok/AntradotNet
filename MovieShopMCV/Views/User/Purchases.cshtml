@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ApplicationCore.Models.MovieCardResponseModel>
+﻿@model IEnumerable<ApplicationCore.Models.MoviePurchaseDetailsResponseModel>
 
 @{
     ViewData["Title"] = "Purchases";
@@ -7,12 +7,14 @@
 <div class="container-fluid">
     <div class="row">
 
-        @foreach (var movie in Model)
+        @foreach (var purchase in Model)
         {
             <div class="col-xl-2 col-sm-4 col-lg-3 col-6">
-            <partial model="movie" name="_MovieCard" />
-            <button type="button" class="btn btn-dark w-100">Purchase Details</button>
+            <partial model="purchase.Card" name="_MovieCard" />
+            <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#purchaseDetailsModal">Purchase Details</button>
             @*the margin that makes this look wierd comes from the partial _MovieCard so I was not sure if I should edit that or not*@
+            
+            <partial model="purchase" name="_PurchaseDetails" />
             </div>
         }   
 

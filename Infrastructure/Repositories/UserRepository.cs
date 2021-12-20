@@ -52,10 +52,16 @@ namespace Infrastructure.Repositories
             return movies;
         }
 
-        public async Task<IEnumerable<Movie>> GetUserPurchasedMovies(int id)
+        //public async Task<IEnumerable<Movie>> GetUserPurchasedMovies(int id)
+        //{
+        //    var movies = await _dbContext.Movies.Join(_dbContext.Purchases, m => m.Id, p => p.MovieId, (m, p) => new { m.Id, m.PosterUrl, m.Title, p.UserId }).Where(p => p.UserId == id).Select(m => new Movie { Id = m.Id, PosterUrl = m.PosterUrl, Title = m.Title }).ToListAsync();
+        //    return movies;
+        //}
+
+        public async Task<IEnumerable<Purchase>> GetUserPurchasedMovies(int id)
         {
-            var movies = await _dbContext.Movies.Join(_dbContext.Purchases, m => m.Id, p => p.MovieId, (m, p) => new { m.Id, m.PosterUrl, m.Title, p.UserId }).Where(p => p.UserId == id).Select(m => new Movie { Id = m.Id, PosterUrl = m.PosterUrl, Title = m.Title }).ToListAsync();
-            return movies;
+            var purchasedMovies = await _dbContext.Movies.Join(_dbContext.Purchases, m => m.Id, p => p.MovieId, (m, p) => new { m.Id, m.PosterUrl, m.Title, p.PurchaseDateTime, p.TotalPrice, p.PurchaseNumber, p.UserId }).Where(p => p.UserId == id).Select(m => new Purchase { Movie = new Movie { Id = m.Id, PosterUrl = m.PosterUrl, Title = m.Title }, PurchaseDateTime = m.PurchaseDateTime, TotalPrice = m.TotalPrice, PurchaseNumber = m.PurchaseNumber }).ToListAsync();
+            return purchasedMovies;
         }
     }
 }

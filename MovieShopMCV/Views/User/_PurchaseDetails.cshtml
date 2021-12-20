@@ -1,0 +1,28 @@
+﻿@model ApplicationCore.Models.MoviePurchaseDetailsResponseModel
+
+<div class="modal fade" id="purchaseDetailsModal" tabindex="-1" role="dialog" aria-labelledby="purchaseDetailsModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="purchaseDetailsModalLabel">Purchase Details</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <partial model="Model.Card" name="_MovieCard" />
+
+        Purchase Date
+        <span class="badge rounded-pill bg-dark">@(Model.PurchaseDate != null ? Model.PurchaseDate.Value.ToString("MMM dd, yyyy") : "N/A")</span>
+        <hr style="color:black;background-color:black"/>
+
+        Price
+        <span class="badge rounded-pill bg-dark">@Model.PurchaseAmount.Value.ToString("N")</span>
+        <hr style="color:black;background-color:black"/>
+
+        Purchase Number
+        <span class="badge rounded-pill bg-dark">$@Model.PurchaseNumber.ToString()</span>
+        </div>
+    </div>
+  </div>
+</div>

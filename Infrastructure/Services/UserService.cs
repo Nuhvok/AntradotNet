@@ -34,7 +34,7 @@ namespace Infrastructure.Services
         public async Task<List<MovieCardResponseModel>> GetUserFavoritedMovies(int id)
         {
             var movies = await _userRepository.GetUserFavoritedMovies(id);
-            
+
             var movieCards = new List<MovieCardResponseModel>();
             foreach (var movie in movies)
             {
@@ -45,18 +45,18 @@ namespace Infrastructure.Services
             return movieCards;
         }
 
-        public async Task<List<MovieCardResponseModel>> GetUserPurchasedMovies(int id)
+        public async Task<List<MoviePurchaseDetailsResponseModel>> GetUserPurchasedMovies(int id)
         {
-            var movies = await _userRepository.GetUserPurchasedMovies(id);
+            var purchases = await _userRepository.GetUserPurchasedMovies(id);
 
-            var movieCards = new List<MovieCardResponseModel>();
-            foreach (var movie in movies)
+            var purchaseCards = new List<MoviePurchaseDetailsResponseModel>();
+            foreach (var purchase in purchases)
             {
-                movieCards.Add(
-                    new MovieCardResponseModel { Id = movie.Id, PosterUrl = movie.PosterUrl, Title = movie.Title }
+                purchaseCards.Add(
+                    new MoviePurchaseDetailsResponseModel {Card = new MovieCardResponseModel { Id = purchase.Movie.Id, PosterUrl = purchase.Movie.PosterUrl, Title = purchase.Movie.Title }, PurchaseDate = purchase.PurchaseDateTime, PurchaseAmount = purchase.TotalPrice, PurchaseNumber = purchase.PurchaseNumber }
                     );
             }
-            return movieCards;
+            return purchaseCards;
         }
     }
 }

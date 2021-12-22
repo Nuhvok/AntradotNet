@@ -33,7 +33,8 @@ namespace Infrastructure.Services
             return movieCards;
         }
 
-        public async Task<MovieDetailsResponseModel> GetMovieDetailsById(int movieId, int userId)
+        // public async Task<MovieDetailsResponseModel> GetMovieDetailsById(int movieId, int userId)
+        public async Task<MovieDetailsResponseModel> GetMovieDetailsById(int movieId)
         {
             var movie = await _movieRepository.GetById(movieId);
 

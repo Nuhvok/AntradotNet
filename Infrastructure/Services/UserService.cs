@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {
+    //[Authorize]
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;

@@ -33,9 +33,9 @@ namespace Infrastructure.Services
             return movieCards;
         }
 
-        public async Task<MovieDetailsResponseModel> GetMovieDetailsById(int id)
+        public async Task<MovieDetailsResponseModel> GetMovieDetailsById(int movieId, int userId)
         {
-            var movie = await _movieRepository.GetById(id);
+            var movie = await _movieRepository.GetById(movieId);
 
             // map movie entity into Movie Details Model
             // Automapper that can be used for mapping one object to another object
@@ -87,6 +87,8 @@ namespace Infrastructure.Services
             {
                 movieDetails.Genres.Add(new GenreModel { Id = movieGenres.GenreId, Name = movieGenres.Genre.Name });
             }
+
+            //if(context)
 
             return movieDetails;
         }

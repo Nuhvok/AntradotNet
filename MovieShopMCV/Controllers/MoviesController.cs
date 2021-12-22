@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.ServiceInterfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace MovieShopMVC.Controllers
 {
@@ -14,8 +15,13 @@ namespace MovieShopMVC.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
+            var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             // call the MovieService wuth DI to get the movie details information
-            var movieDetails = await _movieService.GetMovieDetailsById(id);
+            var movieDetails = await _movieService.GetMovieDetailsById(id, userId);
+
+            // add here 
+            
+
             return View(movieDetails);
         }
     }

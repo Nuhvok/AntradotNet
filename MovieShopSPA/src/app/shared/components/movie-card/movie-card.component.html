@@ -1,5 +1,5 @@
 <div class="card mb-4 bg-light">
-    <a>
+    <a [routerLink]="[ '/movies/details', movieCard.id]">
         <img src="{{movieCard.posterUrl}}" class="img-fluid rounded">
     </a>
 </div>

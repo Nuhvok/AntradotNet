@@ -38,6 +38,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors( b =>
+{
+    b.WithOrigins( builder.Configuration.GetValue<string>("spaClientUrl") ).AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+});
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

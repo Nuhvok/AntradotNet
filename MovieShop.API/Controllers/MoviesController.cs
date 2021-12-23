@@ -27,7 +27,7 @@ namespace MovieShop.API.Controllers
         }
 
         [HttpGet]
-        [Route("{id:int}")]
+        [Route("details/{id:int}")]
         public async Task<IActionResult> Details(int id)
         {
             var movie = await _movieService.GetMovieDetailsById(id);

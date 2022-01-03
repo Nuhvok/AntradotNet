@@ -14,6 +14,7 @@ namespace MovieShop.API.Controllers
         {
             _genreService = genreService;
         }
+
         [HttpGet]
         [Route("")]
         public async Task<IActionResult> GetGenres()

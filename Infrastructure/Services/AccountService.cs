@@ -21,6 +21,12 @@ namespace Infrastructure.Services
             _userRepository = userRepository;
         }
 
+        public async Task<bool> CheckUser(int id)
+        {
+            var dbUser = await _userRepository.GetById(id);
+            return dbUser != null;
+        }
+
         public async Task<int> RegisterUser(UserRegisterRequestModel model)
         {
             var dbUser = await _userRepository.GetUserByEmail(model.Email);

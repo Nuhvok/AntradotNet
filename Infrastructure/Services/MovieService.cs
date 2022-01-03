@@ -17,11 +17,42 @@ namespace Infrastructure.Services
         {
             _movieRepository = movieRepository;
         }
+
+        public async Task<IEnumerable<MovieCardResponseModel>> GetMovies()
+        {
+            // call my MovieRepository and get the data
+            var movies = await _movieRepository.GetMovies();
+            // 3rd party Automapper from Nuget
+            var movieCards = new List<MovieCardResponseModel>();
+            foreach (var movie in movies)
+            {
+                movieCards.Add(
+                    new MovieCardResponseModel { Id = movie.Id, PosterUrl = movie.PosterUrl, Title = movie.Title }
+                    );
+            }
+
+            return movieCards;
+        }
+
         public async Task<IEnumerable<MovieCardResponseModel>> GetHighestGrossingMovies()
         {
             // call my MovieRepository and get the data
             var movies = await _movieRepository.Get30HighestGrossingMovies();
             // 3rd party Automapper from Nuget
+            var movieCards = new List<MovieCardResponseModel>();
+            foreach (var movie in movies)
+            {
+                movieCards.Add(
+                    new MovieCardResponseModel { Id = movie.Id, PosterUrl = movie.PosterUrl, Title = movie.Title }
+                    );
+            }
+
+            return movieCards;
+        }
+        public async Task<IEnumerable<MovieCardResponseModel>> GetMoviesByGenre(int id)
+        {
+            var movies = await _movieRepository.GetMoviesByGenre(id);
+
             var movieCards = new List<MovieCardResponseModel>();
             foreach (var movie in movies)
             {
@@ -93,5 +124,7 @@ namespace Infrastructure.Services
 
             return movieDetails;
         }
+
+        
     }
 }

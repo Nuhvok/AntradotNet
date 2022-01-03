@@ -22,6 +22,8 @@ builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ICastRepository, CastRepository>();
+builder.Services.AddScoped<ICastService, CastService>();
 
 builder.Services.AddDbContext<MovieShopDbContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("MovieShopDbConnection"))

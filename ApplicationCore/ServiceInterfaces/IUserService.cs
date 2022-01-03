@@ -13,5 +13,6 @@ namespace ApplicationCore.ServiceInterfaces
         Task<List<MovieCardResponseModel>> GetUserFavoritedMovies(int id);
         Task<UserDetailsModel> GetUserDetails(int id);
         Task<bool> EditUserProfile(UserDetailsModel userDetailsModel);
+        Task<MoviePurchaseDetailsModel> PurchaseMovie(MoviePurchaseDetailsModel purchaseModel);
     }
 }

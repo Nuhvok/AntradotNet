@@ -59,5 +59,11 @@ namespace Infrastructure.Services
             }
             return purchaseCards;
         }
+
+        public async Task<MoviePurchaseDetailsModel> PurchaseMovie(MoviePurchaseDetailsModel purchaseModel)
+        {
+            var purchase = await _userRepository.PurchaseMovie(new Purchase { UserId = purchaseModel.UserId, PurchaseNumber = purchaseModel.PurchaseNumber, TotalPrice = purchaseModel.PurchaseAmount.Value, PurchaseDateTime = purchaseModel.PurchaseDate, MovieId = purchaseModel.MovieId });
+            return new MoviePurchaseDetailsModel { UserId = purchase.UserId, PurchaseNumber = purchase.PurchaseNumber, PurchaseAmount = purchase.TotalPrice, PurchaseDate = purchase.PurchaseDateTime, MovieId = purchase.MovieId};
+        }
     }
 }

@@ -48,7 +48,7 @@ namespace Infrastructure.Repositories
 
         public async Task<IEnumerable<Movie>> GetUserFavoritedMovies(int id)
         {
-            var movies = await _dbContext.Movies.Join(_dbContext.Favorites, m => m.Id, f => f.MovieId, (m, f) => new { m.Id,m.PosterUrl, m.Title, f.UserId}).Where(f => f.UserId == id).Select(m => new Movie { Id = m.Id, PosterUrl = m.PosterUrl, Title = m.Title}).ToListAsync();
+            var movies = await _dbContext.Movies.Join(_dbContext.Favorites, m => m.Id, f => f.MovieId, (m, f) => new { m.Id, m.PosterUrl, m.Title, f.UserId}).Where(f => f.UserId == id).Select(m => new Movie { Id = m.Id, PosterUrl = m.PosterUrl, Title = m.Title}).ToListAsync();
             return movies;
         }
 
@@ -62,6 +62,19 @@ namespace Infrastructure.Repositories
         {
             var purchasedMovies = await _dbContext.Movies.Join(_dbContext.Purchases, m => m.Id, p => p.MovieId, (m, p) => new { m.Id, m.PosterUrl, m.Title, p.PurchaseDateTime, p.TotalPrice, p.PurchaseNumber, p.UserId }).Where(p => p.UserId == id).Select(m => new Purchase { Movie = new Movie { Id = m.Id, PosterUrl = m.PosterUrl, Title = m.Title }, PurchaseDateTime = m.PurchaseDateTime, TotalPrice = m.TotalPrice, PurchaseNumber = m.PurchaseNumber }).ToListAsync();
             return purchasedMovies;
+        }
+
+        public async Task<Purchase> PurchaseMovie(Purchase purchase)
+        {
+            var purchaseOut = _dbContext.Purchases.Add(purchase);
+            await _dbContext.SaveChangesAsync();
+
+            if(purchaseOut != null)
+            {
+                return purchase;
+            }
+
+            return null;
         }
     }
 }

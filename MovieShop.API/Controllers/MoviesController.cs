@@ -15,11 +15,11 @@ namespace MovieShop.API.Controllers
         }
 
         [HttpGet]
-        [Route("TopRevenue")]
-        public async Task<IActionResult> GetTopRevenueMovies()
+        [Route("")]
+        public async Task<IActionResult> GetMovies()
         {
-            var movies = await _movieService.GetHighestGrossingMovies();
-            if(!movies.Any())
+            var movies = await _movieService.GetMovies();
+            if (movies == null)
             {
                 return NotFound();
             }
@@ -27,7 +27,7 @@ namespace MovieShop.API.Controllers
         }
 
         [HttpGet]
-        [Route("details/{id:int}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> Details(int id)
         {
             var movie = await _movieService.GetMovieDetailsById(id);
@@ -36,6 +36,45 @@ namespace MovieShop.API.Controllers
                 return NotFound();
             }
             return Ok(movie);
+        }
+
+        [HttpGet]
+        [Route("TopRated")]
+        public async Task<IActionResult> GetTopRatedMovies()
+        {
+            throw new NotImplementedException();
+            // I do not know where this data is supposed to come from.
+        }
+
+        [HttpGet]
+        [Route("TopRevenue")]
+        public async Task<IActionResult> GetTopRevenueMovies()
+        {
+            var movies = await _movieService.GetHighestGrossingMovies();
+            if (!movies.Any())
+            {
+                return NotFound();
+            }
+            return Ok(movies);
+        }
+
+        [HttpGet]
+        [Route("Genre/{genreId:int}")]
+        public async Task<IActionResult> GetMoviesByGenre(int genreId)
+        {
+            var movies = await _movieService.GetMoviesByGenre(genreId);
+            if (!movies.Any())
+            {
+                return NotFound();
+            }
+            return Ok(movies);
+        }
+
+        [HttpGet]
+        [Route("{id:int}/Reviews")]
+        public async Task<IActionResult> GetMovieReviews(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Models;
 using ApplicationCore.ServiceInterfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -16,8 +17,9 @@ namespace MovieShop.API.Controllers
             _userService = userService;
         }
 
+        [Authorize]
         [HttpGet]
-        [Route("{userId:int}/Purchases")]
+        [Route("Purchases")]
         //public async Task<IActionResult> Purchases()
         public async Task<IActionResult> Purchases(int userId)
         {

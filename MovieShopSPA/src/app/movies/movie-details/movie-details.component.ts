@@ -19,11 +19,11 @@ export class MovieDetailsComponent implements OnInit {
     this.route.paramMap.subscribe(
       p => {
         this.id = Number(p.get('id'));
-        console.log('MovieId: ' + this.id);
+        //console.log('MovieId: ' + this.id);
         this.movieService.getMovieDetails(this.id).subscribe(
           m=> {
               this.movie = m;
-              console.log(this.movie);
+              //console.log(this.movie);
           }
         )
       }

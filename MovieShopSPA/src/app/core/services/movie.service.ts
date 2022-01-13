@@ -20,7 +20,7 @@ export class MovieService {
 
   getMovieDetails(id: number) : Observable<MovieDetails>
   {
-    return this.http.get<MovieDetails>(`${environment.apiBaseUrl}movies/details/${id}`)
+    return this.http.get<MovieDetails>(`${environment.apiBaseUrl}movies/${id}`)
     //return this.http.get<MovieCard[]>('https://localhost:7169/api/movies/toprevenue')
   }
 

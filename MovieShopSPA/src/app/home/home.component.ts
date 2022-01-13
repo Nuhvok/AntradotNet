@@ -15,8 +15,8 @@ import { UserProfile } from '../shared/models/userProfile';
 export class HomeComponent implements OnInit {
 
   movieCards! : MovieCard[];
-  movieDetails! : MovieDetails;
-  userFavorites! : UserFavorites;
+  // movieDetails! : MovieDetails;
+  // userFavorites! : UserFavorites;
   constructor(private movieService : MovieService, private userService : UserService) { }
 
   ngOnInit(): void {
@@ -29,23 +29,23 @@ export class HomeComponent implements OnInit {
       }
       );
 
-      this.movieService.getMovieDetails(1)
-    .subscribe(
-      m=> {
-        this.movieDetails = m;
-        // console.log('Inside Subscription');
-        console.log(this.movieDetails);
-      }
-    );
+    //   this.movieService.getMovieDetails(1)
+    // .subscribe(
+    //   m=> {
+    //     this.movieDetails = m;
+    //     // console.log('Inside Subscription');
+    //     console.log(this.movieDetails);
+    //   }
+    // );
 
-    this.userService.getUserFavorites(49821)
-    .subscribe(
-      m=> {
-        this.userFavorites = m;
-        // console.log('Inside Subscription');
-        console.log(this.userFavorites);
-      }
-    );
+    // this.userService.getUserFavorites(49821)
+    // .subscribe(
+    //   m=> {
+    //     this.userFavorites = m;
+    //     // console.log('Inside Subscription');
+    //     console.log(this.userFavorites);
+    //   }
+    // );
 
   }
 

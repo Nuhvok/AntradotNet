@@ -46,6 +46,14 @@ namespace Infrastructure.Services
             return movieCards;
         }
 
+        // work here
+        public async Task<MovieFavoriteDetailsModel> FavoriteMovie(MovieFavoriteDetailsModel favoriteModel)
+        {
+            //var favorite = await _userRepository.FavoriteMovie(new Favorite { UserId = favoriteModel.UserId, MovieId = favoriteModel.MovieId });
+            //return new MoviePurchaseDetailsModel { UserId = purchase.UserId, PurchaseNumber = purchase.PurchaseNumber, PurchaseAmount = purchase.TotalPrice, PurchaseDate = purchase.PurchaseDateTime, MovieId = purchase.MovieId };
+            return null;
+        }
+
         public async Task<List<MoviePurchaseDetailsResponseModel>> GetUserPurchasedMovies(int id)
         {
             var purchases = await _userRepository.GetUserPurchasedMovies(id);

@@ -76,5 +76,18 @@ namespace Infrastructure.Repositories
 
             return null;
         }
+
+        public async Task<Favorite> FavoriteMovie(Favorite favorite)
+        {
+            var favoriteOut = _dbContext.Favorites.Add(favorite);
+            await _dbContext.SaveChangesAsync();
+
+            if (favoriteOut != null)
+            {
+                return favorite;
+            }
+
+            return null;
+        }
     }
 }

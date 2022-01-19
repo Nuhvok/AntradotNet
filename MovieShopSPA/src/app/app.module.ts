@@ -10,6 +10,10 @@ import { LoginComponent } from './account/login/login.component';
 import { RegisterComponent } from './account/register/register.component';
 import { MovieCardComponent } from './shared/components/movie-card/movie-card.component';
 import { MoviesModule } from './movies/movies.module';
+import { UserComponent } from './user/user.component';
+import { UserModule } from './user/user.module';
+import { AdminModule } from './admin/admin.module';
+import { AccountModule } from './account/account.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +21,8 @@ import { MoviesModule } from './movies/movies.module';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    MovieCardComponent
+    MovieCardComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

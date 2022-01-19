@@ -14,5 +14,6 @@ namespace ApplicationCore.ServiceInterfaces
         Task<UserDetailsModel> GetUserDetails(int id);
         Task<bool> EditUserProfile(UserDetailsModel userDetailsModel);
         Task<MoviePurchaseDetailsModel> PurchaseMovie(MoviePurchaseDetailsModel purchaseModel);
+        Task<MovieFavoriteDetailsModel> FavoriteMovie(MovieFavoriteDetailsModel favoriteModel);
     }
 }

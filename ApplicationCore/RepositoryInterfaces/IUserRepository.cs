@@ -18,5 +18,7 @@ namespace ApplicationCore.RepositoryInterfaces
         Task<User> GetUserDetails(int id);
 
         Task<Purchase> PurchaseMovie(Purchase purchase);
+
+        Task<Favorite> FavoriteMovie(Favorite favorite);
     }
 }

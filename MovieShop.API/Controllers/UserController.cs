@@ -9,6 +9,7 @@ namespace MovieShop.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -19,7 +20,7 @@ namespace MovieShop.API.Controllers
 
         [Authorize]
         [HttpGet]
-        [Route("Purchases")]
+        [Route("{userId}/Purchases")]
         //public async Task<IActionResult> Purchases()
         public async Task<IActionResult> Purchases(int userId)
         {
@@ -34,14 +35,15 @@ namespace MovieShop.API.Controllers
         }
 
         [HttpGet]
-        [Route("{userId:int}/Favorites")]
+        [Route("{userId}/Favorites")]
         //public async Task<IActionResult> Favorites()
         public async Task<IActionResult> Favorites(int userId)
         {
             //var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            //userId = 49821;
 
             var favorites = await _userService.GetUserFavoritedMovies(userId);
-            if (favorites == null)
+            if (favorites == null || favorites.Count < 1)
             {
                 return NotFound();
             }
@@ -74,6 +76,20 @@ namespace MovieShop.API.Controllers
             }
             // I wasnt sure how to use the created method here
             return Ok(purchaseOut);
+        }
+
+        [HttpPost]
+        [Route("Favorite")]
+        public async Task<IActionResult> Favorite([FromBody] MovieFavoriteDetailsModel favorite)
+        {
+            var favoriteOut = await _userService.FavoriteMovie(favorite);
+            if (favoriteOut == null)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
+            // I wasnt sure how to use the created method here
+            return Ok(favoriteOut);
+            //return Created();
         }
     }
 }
